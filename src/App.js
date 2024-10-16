@@ -4,9 +4,9 @@ import "./App.css";
 function App() {
   return (
     <div className="app-container">
-      <h1 className="title" tabIndex="0">
+      <h2 className="title" tabIndex="0">
         Blackjack
-      </h1>
+      </h2>
       <Game />
     </div>
   );

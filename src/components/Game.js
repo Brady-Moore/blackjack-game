@@ -34,7 +34,6 @@ const getCardValue = (card) => {
   return parseInt(faceValue, 10);
 };
 
-// Function to calculate the total value of a hand, handling Aces as 1 or 11
 const calculateHandValue = (hand) => {
   let total = 0;
   let aces = 0;
@@ -64,9 +63,7 @@ const Game = () => {
   const [winner, setWinner] = useState("");
 
   useEffect(() => {
-    // Deal initial hands
     startNewGame();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startNewGame = () => {
@@ -83,7 +80,6 @@ const Game = () => {
     if (nextCardIndex < shuffledDeck.length) {
       const newCard = shuffledDeck[nextCardIndex];
       setPlayerHand([...playerHand, newCard]);
-      // Check if player busts after hitting
       const newPlayerTotal = calculateHandValue([...playerHand, newCard]);
       if (newPlayerTotal > 21) {
         setWinner("Dealer wins! Player busted.");
@@ -93,14 +89,12 @@ const Game = () => {
   };
 
   const stand = () => {
-    // Simulate dealer's turn and decide winner
     let updatedDealerHand = [...dealerHand];
     let dealerTotal = calculateHandValue(updatedDealerHand);
 
-    // Dealer hits until total is at least 17
     while (dealerTotal < 17) {
       const nextCardIndex = playerHand.length + updatedDealerHand.length;
-      if (nextCardIndex >= shuffledDeck.length) break; // Prevent out-of-bounds
+      if (nextCardIndex >= shuffledDeck.length) break;
       const nextCard = shuffledDeck[nextCardIndex];
       updatedDealerHand.push(nextCard);
       dealerTotal = calculateHandValue(updatedDealerHand);
@@ -139,13 +133,14 @@ const Game = () => {
         total={dealerTotal}
         hideTotal={!gameOver}
       />
-      <div className="result-container">
-        {gameOver && (
+
+      {gameOver && (
+        <div className="result-container">
           <p className="winner" aria-live="polite">
             {winner}
           </p>
-        )}
-      </div>
+        </div>
+      )}
 
       <Hand title="Player" cards={playerHand} total={playerTotal} />
       <Controls
