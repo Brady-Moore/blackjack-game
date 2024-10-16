@@ -139,6 +139,14 @@ const Game = () => {
         total={dealerTotal}
         hideTotal={!gameOver}
       />
+      <div className="result-container">
+        {gameOver && (
+          <p className="winner" aria-live="polite">
+            {winner}
+          </p>
+        )}
+      </div>
+
       <Hand title="Player" cards={playerHand} total={playerTotal} />
       <Controls
         gameOver={gameOver}
@@ -146,11 +154,6 @@ const Game = () => {
         stand={stand}
         startNewGame={startNewGame}
       />
-      {gameOver && (
-        <p className="winner" aria-live="polite">
-          {winner}
-        </p>
-      )}
     </div>
   );
 };
